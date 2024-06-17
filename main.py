@@ -1,7 +1,7 @@
 from Modelo.Red import Red
 from Utilidades.Utilidades import Utilidades
 
-red= Red
+red= Red()
 
 def menu():
     salir= False
