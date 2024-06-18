@@ -6,5 +6,8 @@ class Mensaje:
     def getTexto(self):
         return self.texto
     
+    def getRemitente(self):
+        return self.remitente
+    
     def setRemitente(self, remite):
         self.remitente= remite

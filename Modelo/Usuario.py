@@ -1,3 +1,4 @@
+from Modelo.Mensaje import Mensaje
 from Utilidades.Utilidades import Utilidades
 
 
@@ -26,6 +27,9 @@ class Usuario:
     
     def setRed(self,redNueva):
         self.red= redNueva
+    
+    def setMensaje(self,mensaje):
+        self.mensajes.append(mensaje)
 
     def comprobarUsuario(self,id):
         listaRed=self.red.getUsuarios()
@@ -61,7 +65,31 @@ class Usuario:
     def listaAmigos(self):
         print(f"LISTA DE AMIGOS DE: {self.nombre} {self.apellido}")
         for user in self.amigos:
-            print(f"Nombre: {user.getNombre()} Apellido: {user.getApellido()} Id: {user.getId()}") 
+            print(f"Nombre: {user.getNombre()} Apellido: {user.getApellido()} Id: {user.getId()}")
+    
+    def enviarMensaje(self):
+        texto= Utilidades.leerString("Intorduce el texto del mensaje: ")
+        id= Utilidades.leerInteger("Introduce el Id del amigo al que le quieres enviar el mensaje: ")
+        usuarioEncontrado=None
+        for usuario in self.amigos:
+            if usuario.getId()==id:
+                usuarioEncontrado=usuario
+        
+        if usuarioEncontrado==None:
+            print(f"El usuario con id: {id} no esta en tu lista de amigos")
+        else:
+            mensaje= Mensaje(texto)
+            usuarioEncontrado.setMensaje(mensaje)
+            mensaje.setRemitente(self)
+            print(f"El mensaje ha sido enviado a: {usuarioEncontrado.getNombre()} {usuarioEncontrado.getApellido()}")
+
+    def leerMensajes(self):
+        contador=0
+        for mensaje in self.mensajes:
+            contador+=1
+            remitente= mensaje.getRemitente()
+            print(f"{contador}- Enviado por: {remitente.getNombre()} {remitente.getApellido()} TEXTO: {mensaje.getTexto()}")
+                
     
     def menu(self):
         salir=False
@@ -84,9 +112,9 @@ class Usuario:
             elif opcion=="3":
                 self.listaAmigos()
             elif opcion=="4":
-                enviarMensaje()
+                self.enviarMensaje()
             elif opcion=="5":
-                leerMensaje()
+                self.leerMensajes()
             elif opcion=="9":
                 print("Saliendo...")
                 salir=True
