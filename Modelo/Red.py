@@ -37,12 +37,16 @@ class Red:
     def login(self):
         id= Utilidades.leerInteger("Introduce el id del usuario:")
         password= Utilidades.leerString("Introduce contraseña de usuario:")
+        usuarioEncontrado=None
 
         for usuario in self.usuarios:
             if usuario.getId()==id and usuario.getPassword()==password:
-                usuario.menu()
-            else:
-                print("Error: id o contraseña incorrecta")
+                usuarioEncontrado= usuario
+        
+        if usuarioEncontrado == None:
+            print("Error: id o contraseña incorrecta")
+        else:
+            usuarioEncontrado.menu()
     
     def getUsuarios(self):
         return self.usuarios
