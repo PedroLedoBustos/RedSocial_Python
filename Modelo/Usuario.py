@@ -84,6 +84,7 @@ class Usuario:
             print(f"El mensaje ha sido enviado a: {usuarioEncontrado.getNombre()} {usuarioEncontrado.getApellido()}")
 
     def leerMensajes(self):
+        print(" LISTA DE MENSAJES:")
         contador=0
         for mensaje in self.mensajes:
             contador+=1
